@@ -5,6 +5,8 @@ import { ContactList } from "components/ContactList/ContactList";
 
 import { Div, H1, H2 } from "./App.styled";
 
+const LS_KEY = 'contacts_save';
+
 export class App extends Component {
 
   state = {
@@ -34,11 +36,22 @@ export class App extends Component {
   )) 
   };
 
-  deleteContacts = ( contactId ) => {
+  deleteContacts = (contactId) => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
+
+  componentDidMount() {
+    this.setState({
+      contacts: JSON.parse(localStorage.getItem(LS_KEY))
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts)
+    ); 
+  }
 
   render() {
     const { filter } = this.state;

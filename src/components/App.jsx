@@ -11,7 +11,7 @@ export class App extends Component {
 
   state = {
     contacts: [],
-    filter: '',
+    filtered: '',
   }
 
   handleSubmit = data => {
@@ -22,12 +22,12 @@ export class App extends Component {
   };
 
   changeFilter = e => {
-    this.setState({filter: e.currentTarget.value});
+    this.setState({filtered: e.currentTarget.value});
   };
   
   filteredContacts = () => {
-    const { filter, contacts } = this.state;
-    const normalizedFilter = filter.toLowerCase();
+    const { filtered, contacts } = this.state;
+    const normalizedFilter = filtered.toLowerCase();
 
   return (contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter),
   )) 
@@ -55,7 +55,7 @@ export class App extends Component {
   }
 
   render() {
-    const { filter } = this.state;
+    const { filtered } = this.state;
     const onHandleSubmit = this.handleSubmit;
     const onChangeFilter = this.changeFilter;
     const onFilteredContacts = this.filteredContacts();
@@ -67,7 +67,7 @@ export class App extends Component {
       <H1>Phonebook</H1>
       <ContactForm onSubmit={onHandleSubmit}/>
       <H2>Contacts</H2>
-      <Filter value={filter} onChange={onChangeFilter}/>
+      <Filter value={filtered} onChange={onChangeFilter}/>
       {contactsListIsVisible !== 0 ? 
       <ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts} /> : 
       <P>There are no saved contacts!</P>}

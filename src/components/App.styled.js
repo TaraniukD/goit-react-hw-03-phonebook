@@ -16,3 +16,7 @@ export const H2 = styled.h2`
 text-align: center; 
 margin: 20px 0px;
 `
+export const P = styled.p`
+text-align: center; 
+margin: 30px 0px;
+`

@@ -3,7 +3,7 @@ import { ContactForm } from "components/ContactForm/ContactForm";
 import { Filter } from "components/Filter/Filter";
 import { ContactList } from "components/ContactList/ContactList";
 
-import { Div, H1, H2 } from "./App.styled";
+import { Div, H1, H2, P } from "./App.styled";
 
 const LS_KEY = 'contacts_save';
 
@@ -49,7 +49,7 @@ export class App extends Component {
     });
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts)
     ); 
   }
@@ -68,9 +68,9 @@ export class App extends Component {
       <ContactForm onSubmit={onHandleSubmit}/>
       <H2>Contacts</H2>
       <Filter value={filter} onChange={onChangeFilter}/>
-      {contactsListIsVisible !== 0 && 
-      <  ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts}
-      />}
+      {contactsListIsVisible !== 0 ? 
+      <ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts} /> : 
+      <P>There are no saved contacts!</P>}
     </Div>
   );
   }

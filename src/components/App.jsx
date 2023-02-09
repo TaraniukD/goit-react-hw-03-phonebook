@@ -14,6 +14,21 @@ export class App extends Component {
     filter: '',
   }
 
+  componentDidMount() {
+    const dataStorage = JSON.parse(localStorage.getItem(LS_KEY));
+     
+    if (dataStorage) { 
+     this.setState({
+       contacts: dataStorage,
+     });
+    }
+   }
+ 
+   componentDidUpdate() {
+     localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts)
+     ); 
+   } 
+
   handleSubmit = data => {
    this.setState(({contacts}) => 
    contacts.find(contact => contact.name === data.name)
@@ -38,24 +53,6 @@ export class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
     }));
   };
-
-  componentDidMount() {
-    // if (localStorage.length === 0) {
-    //   return this.state;
-    // }
-    const dataStorage = localStorage.getItem(LS_KEY);
-    
-   if (dataStorage) { 
-    this.setState({
-      contacts: JSON.parse(dataStorage)
-    });
-   }
-  }
-
-  componentDidUpdate() {
-    localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts)
-    ); 
-  }
 
   render() {
     const { filter } = this.state;

@@ -10,10 +10,7 @@ const LS_KEY = 'contacts_save';
 export class App extends Component {
 
   state = {
-    contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-    ],
+    contacts: [],
     filter: '',
   }
 
@@ -43,6 +40,10 @@ export class App extends Component {
   };
 
   componentDidMount() {
+    if (localStorage.length === 0) {
+      return this.state.contacts;
+    }
+    
     this.setState({
       contacts: JSON.parse(localStorage.getItem(LS_KEY))
     });
@@ -59,6 +60,7 @@ export class App extends Component {
     const onChangeFilter = this.changeFilter;
     const onFilteredContacts = this.filteredContacts();
     const onDeleteContacts = this.deleteContacts;
+    const contactsListIsVisible = this.state.contacts.length;
 
   return (
     <Div>
@@ -66,7 +68,9 @@ export class App extends Component {
       <ContactForm onSubmit={onHandleSubmit}/>
       <H2>Contacts</H2>
       <Filter value={filter} onChange={onChangeFilter}/>
-      <ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts}/>
+      {contactsListIsVisible !== 0 && 
+      <  ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts}
+      />}
     </Div>
   );
   }

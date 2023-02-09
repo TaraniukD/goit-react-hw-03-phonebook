@@ -67,10 +67,13 @@ export class App extends Component {
       <H1>Phonebook</H1>
       <ContactForm onSubmit={onHandleSubmit}/>
       <H2>Contacts</H2>
+      {contactsListIsVisible !== 0 ?
+       <>
       <Filter value={filter} onChange={onChangeFilter}/>
-      {contactsListIsVisible !== 0 ? 
-      <ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts} /> : 
-      <P>There are no saved contacts!</P>}
+      <ContactList contacts={onFilteredContacts} onDeleteContact={onDeleteContacts} />
+       </> : 
+      <P>There are no saved contacts!</P>
+      }
     </Div>
   );
   }

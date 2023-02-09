@@ -40,13 +40,16 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.length === 0) {
-      return this.state;
-    }
+    // if (localStorage.length === 0) {
+    //   return this.state;
+    // }
+    const dataStorage = localStorage.getItem(LS_KEY);
     
+   if (dataStorage) { 
     this.setState({
-      contacts: JSON.parse(localStorage.getItem(LS_KEY))
+      contacts: JSON.parse(dataStorage)
     });
+   }
   }
 
   componentDidUpdate() {

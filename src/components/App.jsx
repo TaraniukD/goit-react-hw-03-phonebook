@@ -41,7 +41,7 @@ export class App extends Component {
 
   componentDidMount() {
     if (localStorage.length === 0) {
-      return this.state.contacts;
+      return this.state;
     }
     
     this.setState({
